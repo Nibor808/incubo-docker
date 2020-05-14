@@ -1,0 +1,25 @@
+header {
+  .navbar {
+    background: $white;
+
+    .container {
+      padding: 0;
+
+      .nav-item:last-child {
+        margin-left: 30px;
+      }
+
+      .navbar-nav > .nav-item {
+        margin-left: 80px;
+
+        .nav-link {
+          @extend a;
+        }
+      }
+
+      .navbar-toggler:focus {
+        outline: none;
+      }
+    }
+  }
+}
