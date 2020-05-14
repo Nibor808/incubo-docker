@@ -10,6 +10,7 @@
 /client/build
 
 # misc
+.idea
 .DS_Store
 /client/.env.local
 /client/.env.development.local
