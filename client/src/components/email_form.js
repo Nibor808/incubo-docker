@@ -1,5 +1,5 @@
 import React from "react";
-import { ReCaptcha } from "react-recaptcha-google";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default props => {
   const {
@@ -8,9 +8,7 @@ export default props => {
     errors,
     borders,
     showResponse,
-    onLoadRecaptcha,
-    verifyCallback,
-    setCaptcha
+    recaptchaRef
   } = props;
 
   return (
@@ -65,14 +63,10 @@ export default props => {
             {showResponse()}
           </div>
 
-          <ReCaptcha
-            ref={ev => setCaptcha(ev)}
+          <ReCAPTCHA
+            ref={recaptchaRef}
             size="normal"
-            data-theme="light"
-            render="explicit"
-            sitekey={`${process.env.RECAPTCHA_KEY}`}
-            onloadCallback={onLoadRecaptcha}
-            verifyCallback={verifyCallback}
+            sitekey="6LcNF-oUAAAAAEMyOzk5t1xUwJJgXSoVJfggilv2"
           />
         </form>
       </div>

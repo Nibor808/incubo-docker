@@ -19,10 +19,10 @@
         box-shadow: $boxShadowSm;
         background: $blue;
         color: $white;
-        padding: 7px 33px;
+        padding: 5px 20px;
         border-radius: 0;
         border: none;
-        margin-bottom: 40px;
+        margin-bottom: 10px;
         outline: none;
       }
 
@@ -38,7 +38,7 @@
         justify-content: space-between;
 
         .success {
-          color: $green;
+          color: $blue;
         }
       }
     }

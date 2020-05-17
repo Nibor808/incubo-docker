@@ -1,8 +1,8 @@
 "use strict";
-import nodemailer from "nodemailer";
+const nodemailer = require("nodemailer");
 
-export default async (req, res) => {
-  const { name, email, message, captchaToken } = req.body;
+module.exports.sendMail = async (req, res) => {
+  const { name, email, message, recaptchaValue } = req.body;
 
   const smtpConfig = {
     service: "gmail",
@@ -12,7 +12,7 @@ export default async (req, res) => {
     }
   };
 
-  if (!captchaToken) {
+  if (!recaptchaValue) {
     return res.send({ error: "Please check the captcha" });
   }
 
@@ -30,9 +30,9 @@ export default async (req, res) => {
 
     res.send({ ok: "Thanks got it! I'll be in touch." });
   } catch (err) {
-    logger.error(err.message);
+    console.error(err.message);
     res.send({
       error: "There was a problem sending your email. Please try again later."
     });
   }
-};
+}

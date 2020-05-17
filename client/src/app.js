@@ -6,7 +6,6 @@ import Contact from "./components/contact";
 import PortfolioList from "./components/portfolio_list";
 import { list2016, list2017 } from "./utils/portfolio_item_info";
 import modalStyle from "./utils/modal_style";
-import { loadReCaptcha } from "react-recaptcha-google";
 
 export default () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,12 +76,11 @@ export default () => {
   };
 
   return [
-    <span key="l1">{showModal()}</span>,
-    <span key="l2">{loadReCaptcha()}</span>,
+    <span key="a1">{showModal()}</span>,
 
-    <Header key="l3" toContact={toContact} toPortfolio={toPortfolio} />,
+    <Header key="a2" toContact={toContact} toPortfolio={toPortfolio} />,
 
-    <section key="l4" className="landing container">
+    <section key="a3" className="landing container">
       <article className="about">
         <div className="about-container">
           <About toContact={toContact} />
@@ -98,6 +96,7 @@ export default () => {
                 href="https://github.com/Nibor808"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-testid="github-link"
               >
                 github
               </a>
@@ -109,14 +108,15 @@ export default () => {
           <PortfolioList
             year="2017"
             list={list2017}
-            listClass="sidebar2017"
+            sideBarName="sidebar2017"
             handleClick={handleClick}
           />
 
           <PortfolioList
+            data-testid="2016-list"
             year="2016"
             list={list2016}
-            listClass="sidebar2016"
+            sideBarName="sidebar2016"
             handleClick={handleClick}
           />
         </div>

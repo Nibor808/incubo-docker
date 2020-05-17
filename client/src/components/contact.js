@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import validateForm from "../utils/validate_form";
-import EmailForm from "../utils/email_form";
+import EmailForm from "./email_form";
 
 export default () => {
+  const recaptchaRef = useRef({});
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [captcha, setCaptcha] = useState("");
-  const [response, setResponse] = useState("");
+  const [response, setResponse] = useState({});
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [messageError, setMessageError] = useState("");
-  const [captchaToken, setCaptchaToken] = useState("");
   const [nameErrorBorder, setNameErrorBorder] = useState("");
   const [emailErrorBorder, setEmailErrorBorder] = useState("");
   const [messageErrorBorder, setMessageErrorBorder] = useState("");
@@ -19,7 +19,7 @@ export default () => {
   const sendMail = async ev => {
     ev.preventDefault();
 
-    const frm = document.getElementById("email-form");
+    const emailForm = document.getElementById("email-form");
 
     const frmError = await validateForm(name, email, message);
 
@@ -29,74 +29,60 @@ export default () => {
       switch (frmError.type) {
         case "name":
           setNameErrorBorder(ERROR_BORDER);
-          return setNameError(frmError.error);
+          return setNameError(frmError.msg);
         case "email":
           setEmailErrorBorder(ERROR_BORDER);
-          return setEmailError(frmError.error);
+          return setEmailError(frmError.msg);
         case "message":
           setMessageErrorBorder(ERROR_BORDER);
-          return setMessageError(frmError.error);
+          return setMessageError(frmError.msg);
         default:
           setNameErrorBorder("");
       }
     }
 
-    const info = {
-      name,
-      email,
-      message,
-      captchaToken
-    };
+    const recaptchaValue = recaptchaRef.current.getValue();
 
-    fetch("/api/sendmail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(info)
-    })
-      .then(res => res.json())
-      .then(response => {
-        setResponse(response);
+    if (!recaptchaValue) {
+      return setResponse({ error: "Please check the captcha" });
+    } else {
+      setResponse({});
 
-        if (!response.error) {
-          frm.reset();
-          captcha.reset();
+      const info = {
+        name,
+        email,
+        message,
+        recaptchaValue: recaptchaValue
+      };
 
-          setName("");
-          setEmail("");
-          setMessage("");
-          setCaptcha("");
-          setCaptchaToken("");
-        }
-
-        setTimeout(() => {
-          setResponse("");
-        }, 3000);
+      fetch("/api/sendmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(info)
       })
-      .catch(err => setResponse(err));
+        .then(res => res.json())
+        .then(response => {
+          setResponse(response);
+
+          if (!response.error) {
+            emailForm.reset();
+            recaptchaRef.current.reset();
+          }
+
+          setTimeout(() => {
+            setResponse("");
+          }, 3000);
+        })
+        .catch(err => setResponse(err));
+    }
   };
 
   const showResponse = () => {
     if (response) {
-      return response.error ? (
-        <p className="error">{response.error}</p>
-      ) : (
-        <p className="success">{response.ok}</p>
-      );
+      return response.error ? <p className="error">{response.error}</p> : <p className="success">{response.ok}</p>;
     }
-  };
-
-  const onLoadRecaptcha = () => {
-    if (captcha) captcha.reset();
-  };
-
-  const verifyCallback = recaptchaToken => {
-    setCaptchaToken(recaptchaToken);
-  };
-
-  const doSetCaptcha = ev => {
-    setCaptcha(ev);
   };
 
   const clearError = () => {
@@ -131,9 +117,7 @@ export default () => {
         messageErrorBorder
       }}
       showResponse={showResponse}
-      onLoadRecaptcha={onLoadRecaptcha}
-      verifyCallback={verifyCallback}
-      setCaptcha={doSetCaptcha}
+      recaptchaRef={recaptchaRef}
     />
   );
 };

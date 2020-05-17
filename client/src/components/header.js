@@ -25,6 +25,7 @@ export default props => {
           <a href="" className="navbar-brand">
             <img
               id="logo-img"
+              data-testid="logo-img"
               src={logo}
               alt="incubo web solutions logo"
               className="img-fluid"

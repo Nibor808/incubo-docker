@@ -2,11 +2,11 @@ import React from "react";
 import PortfolioItem from "./portfolio_item";
 
 export default props => {
-  const { handleClick, year, list, listClass } = props;
-  const klass = `col-sm-2 col-md-1 ${listClass}`;
+  const { handleClick, year, list, sideBarName } = props;
+  const klass = `col-sm-2 col-md-1 ${sideBarName}`;
 
   return (
-    <div className="row">
+    <div className="row" data-testid={`${year}-list`}>
       <div className={klass}>
         <p>{year}</p>
       </div>

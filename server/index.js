@@ -1,8 +1,9 @@
 "use strict";
+require("dotenv").config();
 const express = require("express");
 const parser = require("body-parser");
 const cors = require("cors");
-import sendMail from "./send_mail";
+const sendMail = require("./send_mail").sendMail;
 
 const app = express();
 
