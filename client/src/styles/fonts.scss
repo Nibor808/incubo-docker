@@ -13,7 +13,8 @@ body {
   letter-spacing: 0.5px;
 }
 
-a {
+a,
+button.nav-link {
   font-family: roboto-lt, sans-serif;
   letter-spacing: 0.75px;
   font-size: 20px;
@@ -24,6 +25,6 @@ p {
 }
 
 button,
-form > .form-group > label{
+form > .form-group > label {
   font-size: 18px;
 }

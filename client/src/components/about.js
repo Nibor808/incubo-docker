@@ -3,12 +3,12 @@ import moment from "moment";
 import robin from "../styles/images/robin.jpg";
 
 export default () => {
-  const [years, setYears] = useState("");
-  const [months, setMonths] = useState("");
-  const [days, setDays] = useState("");
-  const [hours, setHours] = useState("");
-  const [minutes, setMinutes] = useState("");
-  const [seconds, setSeconds] = useState("");
+  const [years, setYears] = useState(0);
+  const [months, setMonths] = useState(0);
+  const [days, setDays] = useState(0);
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
 
   const getTime = () => {
     const timeSinceStartDate = moment().diff([2016, 0, 1]);

@@ -22,16 +22,14 @@ export default props => {
     <header ref={topRef}>
       <nav className="navbar navbar-expand-lg fixed-top navbar-light">
         <div className="container">
-          <a href="" className="navbar-brand">
-            <img
-              id="logo-img"
-              data-testid="logo-img"
-              src={logo}
-              alt="incubo web solutions logo"
-              className="img-fluid"
-              onClick={toTop}
-            />
-          </a>
+          <img
+            id="logo-img"
+            data-testid="logo-img"
+            src={logo}
+            alt="incubo web solutions logo"
+            className="img-fluid navbar-brand"
+            onClick={toTop}
+          />
 
           <button
             className="navbar-toggler"
@@ -48,14 +46,20 @@ export default props => {
           <div className="collapse navbar-collapse" id="content">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <a className="nav-link" href="" onClick={toPortfolio}>
+                <button
+                  className="nav-link"
+                  onClick={toPortfolio}
+                >
                   Portfolio
-                </a>
+                </button>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="" onClick={toContact}>
+                <button
+                  className="nav-link"
+                  onClick={toContact}
+                >
                   Contact
-                </a>
+                </button>
               </li>
             </ul>
 

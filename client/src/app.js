@@ -18,7 +18,7 @@ export default () => {
       document.body.scrollTop > 30 ||
       document.documentElement.scrollTop > 30
     ) {
-      document.getElementById("logo-img").style.height = "60px";
+      document.getElementById("logo-img").style.height = "80px";
       document.getElementById("logo-img").style.transition = "0.4s";
     } else document.getElementById("logo-img").style.height = "110px";
   };

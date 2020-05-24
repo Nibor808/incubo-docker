@@ -19,6 +19,9 @@ services:
     - ./server:/app
 
   nginx:
+    depends_on:
+      - client
+      - api
     restart: always
     build:
       dockerfile: Dockerfile.dev

@@ -63,17 +63,18 @@ h6 {
   -webkit-font-smoothing: antialiased;
 }
 
-a {
+a,
+button.nav-link {
   text-decoration: none;
-  color: $blue;
+  color: $blue !important;
   transition: color 0.3s ease-in;
   &:hover,
   &:active {
     text-decoration: none;
-    color: $green;
+    color: $green !important;
   }
   &:focus {
-    color: $blue;
+    color: $blue !important;
   }
 }
 
