@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import validateForm from "../utils/validate_form";
-import EmailForm from "./email_form";
+import ContactForm from "./contact_form";
+import axios from "axios";
 
 export default () => {
   const recaptchaRef = useRef({});
@@ -15,6 +16,7 @@ export default () => {
   const [nameErrorBorder, setNameErrorBorder] = useState("");
   const [emailErrorBorder, setEmailErrorBorder] = useState("");
   const [messageErrorBorder, setMessageErrorBorder] = useState("");
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const sendMail = async ev => {
     ev.preventDefault();
@@ -46,6 +48,7 @@ export default () => {
     if (!recaptchaValue) {
       return setResponse({ error: "Please check the captcha" });
     } else {
+      setButtonClicked(true);
       setResponse({});
 
       const info = {
@@ -55,27 +58,20 @@ export default () => {
         recaptchaValue: recaptchaValue
       };
 
-      fetch("/api/sendmail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(info)
-      })
-        .then(res => res.json())
-        .then(response => {
-          setResponse(response);
+      const response = await axios.post("/api/sendmail", { info });
 
-          if (!response.error) {
-            emailForm.reset();
-            recaptchaRef.current.reset();
-          }
+      if (response.data.ok) {
+        emailForm.reset();
+        recaptchaRef.current.reset();
+        setButtonClicked(false);
+      }
 
-          setTimeout(() => {
-            setResponse("");
-          }, 3000);
-        })
-        .catch(err => setResponse(err));
+      setResponse(response.data);
+      setButtonClicked(false);
+
+      setTimeout(() => {
+        setResponse({});
+      }, 3000);
     }
   };
 
@@ -102,22 +98,28 @@ export default () => {
     clearError();
   };
 
+  const buttonText = buttonClicked ? 'Sending...' : 'Send';
+
   return (
-    <EmailForm
-      sendMail={sendMail}
-      onChange={handleChange}
-      errors={{
-        nameError,
-        emailError,
-        messageError
-      }}
-      borders={{
-        nameErrorBorder,
-        emailErrorBorder,
-        messageErrorBorder
-      }}
-      showResponse={showResponse}
-      recaptchaRef={recaptchaRef}
-    />
+    <div data-testid='contact-div'>
+      <ContactForm
+        sendMail={sendMail}
+        onChange={handleChange}
+        errors={{
+          nameError,
+          emailError,
+          messageError
+        }}
+        borders={{
+          nameErrorBorder,
+          emailErrorBorder,
+          messageErrorBorder
+        }}
+        showResponse={showResponse}
+        recaptchaRef={recaptchaRef}
+        buttonText={buttonText}
+        buttonClicked={buttonClicked}
+      />
+    </div>
   );
 };

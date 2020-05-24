@@ -8,11 +8,13 @@ export default props => {
     errors,
     borders,
     showResponse,
-    recaptchaRef
+    recaptchaRef,
+    buttonText,
+    buttonClicked,
   } = props;
 
   return (
-    <div className="row">
+    <div className="row" data-testid='email-form'>
       <div className="col-1 col-md-1 sidebar" />
 
       <div className="col-sm-8 col-lg-6">
@@ -58,7 +60,10 @@ export default props => {
           </div>
 
           <div className="send-div">
-            <button type="submit">Send</button>
+            <button
+              type="submit"
+              disabled={buttonClicked}
+            >{buttonText}</button>
 
             {showResponse()}
           </div>
