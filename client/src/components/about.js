@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import moment from "moment";
-import robin from "../styles/images/robin.jpg";
+import React, { useState } from 'react';
+import moment from 'moment';
+import robin from '../styles/images/robin.jpg';
 
 export default () => {
   const [years, setYears] = useState(0);
@@ -55,15 +55,15 @@ const STATS = {
   }, 1000);
 
   return (
-    <div className="row">
-      <div className="col-sm-10 col-xl-8 top-box">
-        <div className="img-box">
+    <div className='row'>
+      <div className='col-sm-10 col-xl-8 top-box'>
+        <div className='img-box'>
           <img
             src={robin}
-            alt="me"
-            height="300px"
-            width="300px"
-            className="img-fluid"
+            alt='me'
+            height='300px'
+            width='300px'
+            className='img-fluid'
           />
           <h2>Robin Erickson</h2>
           <p>software developer</p>
@@ -72,7 +72,7 @@ const STATS = {
         <span dangerouslySetInnerHTML={createInfoMarkup()} />
       </div>
 
-      <div className="col-sm-10 bottom-box">
+      <div className='col-sm-10 bottom-box'>
         <p>
           Working in the MERN stack with hobby projects in Swift, Go, Java, and
           Elixir

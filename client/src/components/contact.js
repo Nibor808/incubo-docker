@@ -1,52 +1,52 @@
-import React, { useState, useRef } from "react";
-import validateForm from "../utils/validate_form";
-import ContactForm from "./contact_form";
-import axios from "axios";
+import React, { useState, useRef } from 'react';
+import validateForm from '../utils/validate_form';
+import ContactForm from './contact_form';
+import axios from 'axios';
 
 export default () => {
   const recaptchaRef = useRef({});
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
   const [response, setResponse] = useState({});
-  const [nameError, setNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [messageError, setMessageError] = useState("");
-  const [nameErrorBorder, setNameErrorBorder] = useState("");
-  const [emailErrorBorder, setEmailErrorBorder] = useState("");
-  const [messageErrorBorder, setMessageErrorBorder] = useState("");
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [messageError, setMessageError] = useState('');
+  const [nameErrorBorder, setNameErrorBorder] = useState('');
+  const [emailErrorBorder, setEmailErrorBorder] = useState('');
+  const [messageErrorBorder, setMessageErrorBorder] = useState('');
   const [buttonClicked, setButtonClicked] = useState(false);
 
   const sendMail = async ev => {
     ev.preventDefault();
 
-    const emailForm = document.getElementById("email-form");
+    const emailForm = document.getElementById('email-form');
 
     const frmError = await validateForm(name, email, message);
 
-    const ERROR_BORDER = "1px solid rgb(211, 0, 57)";
+    const ERROR_BORDER = '1px solid rgb(211, 0, 57)';
 
     if (frmError) {
       switch (frmError.type) {
-        case "name":
+        case 'name':
           setNameErrorBorder(ERROR_BORDER);
           return setNameError(frmError.msg);
-        case "email":
+        case 'email':
           setEmailErrorBorder(ERROR_BORDER);
           return setEmailError(frmError.msg);
-        case "message":
+        case 'message':
           setMessageErrorBorder(ERROR_BORDER);
           return setMessageError(frmError.msg);
         default:
-          setNameErrorBorder("");
+          setNameErrorBorder('');
       }
     }
 
     const recaptchaValue = recaptchaRef.current.getValue();
 
     if (!recaptchaValue) {
-      return setResponse({ error: "Please check the captcha" });
+      return setResponse({ error: 'Please check the captcha' });
     } else {
       setButtonClicked(true);
       setResponse({});
@@ -55,10 +55,10 @@ export default () => {
         name,
         email,
         message,
-        recaptchaValue: recaptchaValue
+        recaptchaValue: recaptchaValue,
       };
 
-      const response = await axios.post("/api/sendmail", { info });
+      const response = await axios.post('/api/sendmail', { info });
 
       if (response.data.ok) {
         emailForm.reset();
@@ -77,23 +77,27 @@ export default () => {
 
   const showResponse = () => {
     if (response) {
-      return response.error ? <p className="error">{response.error}</p> : <p className="success">{response.ok}</p>;
+      return response.error ? (
+        <p className='error'>{response.error}</p>
+      ) : (
+        <p className='success'>{response.ok}</p>
+      );
     }
   };
 
   const clearError = () => {
-    setNameError("");
-    setEmailError("");
-    setMessageError("");
-    setNameErrorBorder("");
-    setEmailErrorBorder("");
-    setMessageErrorBorder("");
+    setNameError('');
+    setEmailError('');
+    setMessageError('');
+    setNameErrorBorder('');
+    setEmailErrorBorder('');
+    setMessageErrorBorder('');
   };
 
   const handleChange = (ev, type) => {
-    if (type === "name") setName(ev.target.value);
-    else if (type === "email") setEmail(ev.target.value);
-    else if (type === "message") setMessage(ev.target.value);
+    if (type === 'name') setName(ev.target.value);
+    else if (type === 'email') setEmail(ev.target.value);
+    else if (type === 'message') setMessage(ev.target.value);
 
     clearError();
   };
@@ -108,12 +112,12 @@ export default () => {
         errors={{
           nameError,
           emailError,
-          messageError
+          messageError,
         }}
         borders={{
           nameErrorBorder,
           emailErrorBorder,
-          messageErrorBorder
+          messageErrorBorder,
         }}
         showResponse={showResponse}
         recaptchaRef={recaptchaRef}

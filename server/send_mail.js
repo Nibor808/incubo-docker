@@ -2,7 +2,7 @@
 const nodemailer = require("nodemailer");
 
 module.exports.sendMail = async (req, res) => {
-  const { name, email, message, recaptchaValue } = req.body;
+  const { name, email, message, recaptchaValue } = req.body.info;
 
   const smtpConfig = {
     service: "gmail",

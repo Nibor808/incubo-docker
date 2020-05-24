@@ -1,5 +1,5 @@
 /* -------------- GLOBALS -------------- */
-$icon-font-path: "/fonts/";
+$icon-font-path: '/fonts/';
 $white: rgb(255, 255, 255);
 $blue: rgb(102, 133, 230);
 $green: rgb(135, 237, 137);
@@ -13,12 +13,12 @@ $boxShadowMed: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 $glow: 0 0 8px $green;
 $borderRadius: 0;
 
-@import "./custom_bootstrap";
-@import "./fonts";
-@import "./header";
-@import "./about";
-@import "./portfolio";
-@import "./contact";
+@import './custom_bootstrap';
+@import './fonts';
+@import './header';
+@import './about';
+@import './portfolio';
+@import './contact';
 
 /* -------------- FORMATTING -------------- */
 html,

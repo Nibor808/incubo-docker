@@ -2,8 +2,13 @@ header {
   .navbar {
     background: $white;
 
-    .navbar-brand:hover {
-      cursor: pointer;
+    .navbar-brand {
+      padding: 0;
+      margin: 8px;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     .container {
