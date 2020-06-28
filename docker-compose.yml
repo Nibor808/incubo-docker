@@ -12,7 +12,7 @@ services:
 
   api:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./server
     volumes:
       - /app/node_modules
