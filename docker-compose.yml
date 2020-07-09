@@ -13,10 +13,10 @@ services:
   api:
     build:
       dockerfile: Dockerfile.dev
-      context: ./server
+      context: ./api
     volumes:
       - /app/node_modules
-      - ./server:/app
+      - ./api:/app
 
   nginx:
     depends_on:
